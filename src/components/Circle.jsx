@@ -14,7 +14,7 @@ const style = {
   width: '15px',
 }
 
-const Box = ({ number, type, isDropped }) => {
+const Circle = ({ number, type, isDropped }) => {
   const [{ opacity }, drag] = useDrag({
     item: { number, type },
     collect: monitor => ({
@@ -34,4 +34,4 @@ const Box = ({ number, type, isDropped }) => {
   )
 }
 
-export default Box
+export default Circle
