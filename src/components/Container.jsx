@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDrop } from 'react-dnd'
-import Box from './Box'
 
 const style = {
   float: 'left',
@@ -17,7 +16,7 @@ const style = {
   borderRadius: '5px',
 }
 
-const Dustbin = ({ accept, droppedItems, onDrop }) => {
+const Container = ({ accept, droppedItems, onDrop }) => {
   const [{ isOver, canDrop }, drop] = useDrop({
     accept,
     drop: onDrop,
@@ -50,4 +49,4 @@ const Dustbin = ({ accept, droppedItems, onDrop }) => {
   )
 }
 
-export default Dustbin
+export default Container

@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import update from 'immutability-helper'
 import { ItemTypes } from './Constants'
-import Dustbin from './Dustbin'
-import Box from './Box'
+import Container from './components/Container'
+import Box from './components/Box'
 
 function initBoxes() {
   const boxes = []
@@ -12,15 +12,15 @@ function initBoxes() {
   return boxes
 }
 
-function initDustbins() {
-  const dustbins = []
-  dustbins.push({ accepts: [ItemTypes.EVEN], droppedItems: [] })
-  dustbins.push({ accepts: [ItemTypes.ODD], droppedItems: [] })
-  return dustbins
+function initContainers() {
+  const containers = []
+  containers.push({ accepts: [ItemTypes.EVEN], droppedItems: [] })
+  containers.push({ accepts: [ItemTypes.ODD], droppedItems: [] })
+  return containers
 }
 
-const Container = () => {
-  const [dustbins, setDustbins] = useState(initDustbins())
+const App = () => {
+  const [containers, setContainers] = useState(initContainers())
   const [boxes] = useState(initBoxes())
   const [droppedBoxNumbers, setDroppedBoxNumbers] = useState([])
 
@@ -34,8 +34,8 @@ const Container = () => {
       setDroppedBoxNumbers(
         update(droppedBoxNumbers, number ? { $push: [number] } : { $push: [] }),
       )
-      setDustbins(
-        update(dustbins, {
+      setContainers(
+        update(containers, {
           [index]: {
             droppedItems: {
               $push: [item],
@@ -44,7 +44,7 @@ const Container = () => {
         }),
       )
     },
-    [droppedBoxNumbers, dustbins],
+    [droppedBoxNumbers, containers],
   )
 
   return (
@@ -64,9 +64,9 @@ const Container = () => {
       </div>
 
       <div style={{ overflow: 'hidden', clear: 'both', width: '75%', marginLeft: '50px' }}>
-        {dustbins.map(({ accepts, droppedItems }, index) => (
+        {containers.map(({ accepts, droppedItems }, index) => (
           <div>
-            <Dustbin
+            <Container
               accept={accepts}
               droppedItems={droppedItems}
               onDrop={item => handleDrop(index, item)}
@@ -79,4 +79,4 @@ const Container = () => {
   )
 }
 
-export default Container
+export default App
