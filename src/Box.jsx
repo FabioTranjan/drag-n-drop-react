@@ -3,6 +3,7 @@ import { useDrag } from 'react-dnd'
 
 const style = {
   border: '1px dashed gray',
+  borderRadius: '50%',
   backgroundColor: 'white',
   padding: '0.5rem 1rem',
   marginRight: '1.5rem',

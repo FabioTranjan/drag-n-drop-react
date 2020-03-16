@@ -32,9 +32,9 @@ const Dustbin = ({ accept, lastDroppedItem, onDrop }) => {
   }
   return (
     <div ref={drop} style={{ ...style, backgroundColor }}>
-      {isActive
+      <h3>{isActive
         ? 'Release to drop'
-        : `${accept}`}
+        : `${accept}`.toUpperCase()}</h3>
 
       {lastDroppedItem && (
         <p>Last dropped: {JSON.stringify(lastDroppedItem)}</p>

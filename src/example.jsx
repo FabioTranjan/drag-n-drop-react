@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from 'react'
-import { NativeTypes } from 'react-dnd-html5-backend'
+import update from 'immutability-helper'
+import { ItemTypes } from './Constants'
 import Dustbin from './Dustbin'
 import Box from './Box'
-import { ItemTypes } from './Constants'
-import update from 'immutability-helper'
 
-function renderBoxes() {
+function initBoxes() {
   const boxes = []
   for (let i = 1; i <= 12; i++) {
     boxes.push({ number: i, type: i % 2 == 0 ? ItemTypes.EVEN : ItemTypes.ODD })
@@ -13,16 +12,22 @@ function renderBoxes() {
   return boxes
 }
 
+function initDustbins() {
+  const dustbins = []
+  dustbins.push({ accepts: [ItemTypes.EVEN], lastDroppedItem: [] })
+  dustbins.push({ accepts: [ItemTypes.ODD], lastDroppedItem: [] })
+  return dustbins
+}
+
 const Container = () => {
-  const [dustbins, setDustbins] = useState([
-    { accepts: [ItemTypes.EVEN], lastDroppedItem: null },
-    { accepts: [ItemTypes.ODD], lastDroppedItem: null },
-  ])
-  const [boxes] = useState(renderBoxes())
+  const [dustbins, setDustbins] = useState(initDustbins())
+  const [boxes] = useState(initBoxes())
   const [droppedBoxNumbers, setDroppedBoxNumbers] = useState([])
+
   function isDropped(boxNumber) {
     return droppedBoxNumbers.indexOf(boxNumber) > -1
   }
+
   const handleDrop = useCallback(
     (index, item) => {
       const { number } = item
@@ -33,7 +38,7 @@ const Container = () => {
         update(dustbins, {
           [index]: {
             lastDroppedItem: {
-              $set: item,
+              $push: [item],
             },
           },
         }),
@@ -41,20 +46,11 @@ const Container = () => {
     },
     [droppedBoxNumbers, dustbins],
   )
-  return (
-    <div>
-      <div style={{ overflow: 'hidden', clear: 'both' }}>
-        {dustbins.map(({ accepts, lastDroppedItem }, index) => (
-          <Dustbin
-            accept={accepts}
-            lastDroppedItem={lastDroppedItem}
-            onDrop={item => handleDrop(index, item)}
-            key={index}
-          />
-        ))}
-      </div>
 
-      <div style={{ overflow: 'hidden', clear: 'both' }}>
+  return (
+    <div style={{ display: 'flex' }}>
+      <div style={{ overflow: 'hidden', clear: 'both', width: '25%', border: '1px solid lightGray'}}>
+        <h3>Numbers</h3>
         {boxes.map(({ number, type }, index) => (
           <Box
             number={number}
@@ -62,6 +58,19 @@ const Container = () => {
             isDropped={isDropped(number)}
             key={index}
           />
+        ))}
+      </div>
+
+      <div style={{ overflow: 'hidden', clear: 'both', width: '75%', marginLeft: '50px' }}>
+        {dustbins.map(({ accepts, lastDroppedItem }, index) => (
+          <div>
+            <Dustbin
+              accept={accepts}
+              lastDroppedItem={lastDroppedItem}
+              onDrop={item => handleDrop(index, item)}
+              key={index}
+            />
+          </div>
         ))}
       </div>
     </div>
