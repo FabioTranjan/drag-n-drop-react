@@ -2,16 +2,18 @@ import React from 'react'
 import { useDrop } from 'react-dnd'
 
 const style = {
+  float: 'left',
   height: '12rem',
   width: '12rem',
-  marginRight: '1.5rem',
-  marginBottom: '1.5rem',
-  color: 'white',
+  color: 'black',
+  fontSize: '1rem',
   padding: '1rem',
   textAlign: 'center',
-  fontSize: '1rem',
   lineHeight: 'normal',
-  float: 'left',
+  marginRight: '1.5rem',
+  marginBottom: '1.5rem',
+  border: '2px solid black',
+  borderRadius: '5px',
 }
 
 const Dustbin = ({ accept, lastDroppedItem, onDrop }) => {
@@ -23,21 +25,23 @@ const Dustbin = ({ accept, lastDroppedItem, onDrop }) => {
       canDrop: monitor.canDrop(),
     }),
   })
+
   const isActive = isOver && canDrop
-  let backgroundColor = '#222'
+  let backgroundColor = '#fff'
   if (isActive) {
     backgroundColor = 'darkgreen'
   } else if (canDrop) {
     backgroundColor = 'darkkhaki'
   }
+
   return (
     <div ref={drop} style={{ ...style, backgroundColor }}>
-      <h3>{isActive
+      <h3 style={{ textTransform: 'capitalize' }}>{isActive
         ? 'Release to drop'
-        : `${accept}`.toUpperCase()}</h3>
+        : `${accept}`}</h3>
 
       {lastDroppedItem && (
-        <p>Last dropped: {JSON.stringify(lastDroppedItem)}</p>
+        <p>Dropped: {JSON.stringify(lastDroppedItem)}</p>
       )}
     </div>
   )

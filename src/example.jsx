@@ -49,16 +49,18 @@ const Container = () => {
 
   return (
     <div style={{ display: 'flex' }}>
-      <div style={{ overflow: 'hidden', clear: 'both', width: '25%', border: '1px solid lightGray'}}>
-        <h3>Numbers</h3>
-        {boxes.map(({ number, type }, index) => (
-          <Box
-            number={number}
-            type={type}
-            isDropped={isDropped(number)}
-            key={index}
-          />
-        ))}
+      <div style={{ overflow: 'hidden', clear: 'both', width: '25%', border: '2px solid gray', borderRadius: '5px' }}>
+        <h3 style={{ textAlign: 'center', color: '#222' }}>Numbers</h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+          {boxes.map(({ number, type }, index) => (
+            <Box
+              number={number}
+              type={type}
+              isDropped={isDropped(number)}
+              key={index}
+            />
+          ))}
+        </div>
       </div>
 
       <div style={{ overflow: 'hidden', clear: 'both', width: '75%', marginLeft: '50px' }}>
