@@ -7,15 +7,15 @@ import Box from './Box'
 function initBoxes() {
   const boxes = []
   for (let i = 1; i <= 12; i++) {
-    boxes.push({ number: i, type: i % 2 == 0 ? ItemTypes.EVEN : ItemTypes.ODD })
+    boxes.push({ number: i, type: i % 2 === 0 ? ItemTypes.EVEN : ItemTypes.ODD })
   }
   return boxes
 }
 
 function initDustbins() {
   const dustbins = []
-  dustbins.push({ accepts: [ItemTypes.EVEN], lastDroppedItem: [] })
-  dustbins.push({ accepts: [ItemTypes.ODD], lastDroppedItem: [] })
+  dustbins.push({ accepts: [ItemTypes.EVEN], droppedItems: [] })
+  dustbins.push({ accepts: [ItemTypes.ODD], droppedItems: [] })
   return dustbins
 }
 
@@ -37,7 +37,7 @@ const Container = () => {
       setDustbins(
         update(dustbins, {
           [index]: {
-            lastDroppedItem: {
+            droppedItems: {
               $push: [item],
             },
           },
@@ -64,11 +64,11 @@ const Container = () => {
       </div>
 
       <div style={{ overflow: 'hidden', clear: 'both', width: '75%', marginLeft: '50px' }}>
-        {dustbins.map(({ accepts, lastDroppedItem }, index) => (
+        {dustbins.map(({ accepts, droppedItems }, index) => (
           <div>
             <Dustbin
               accept={accepts}
-              lastDroppedItem={lastDroppedItem}
+              droppedItems={droppedItems}
               onDrop={item => handleDrop(index, item)}
               key={index}
             />

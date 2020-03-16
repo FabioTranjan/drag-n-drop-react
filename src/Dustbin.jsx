@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDrop } from 'react-dnd'
+import Box from './Box'
 
 const style = {
   float: 'left',
@@ -16,7 +17,7 @@ const style = {
   borderRadius: '5px',
 }
 
-const Dustbin = ({ accept, lastDroppedItem, onDrop }) => {
+const Dustbin = ({ accept, droppedItems, onDrop }) => {
   const [{ isOver, canDrop }, drop] = useDrop({
     accept,
     drop: onDrop,
@@ -25,6 +26,8 @@ const Dustbin = ({ accept, lastDroppedItem, onDrop }) => {
       canDrop: monitor.canDrop(),
     }),
   })
+
+  const borderColor = (accept == 'even') ? 'blue' : 'red'
 
   const isActive = isOver && canDrop
   let backgroundColor = '#fff'
@@ -35,13 +38,13 @@ const Dustbin = ({ accept, lastDroppedItem, onDrop }) => {
   }
 
   return (
-    <div ref={drop} style={{ ...style, backgroundColor }}>
+    <div ref={drop} style={{ ...style, backgroundColor, borderColor }}>
       <h3 style={{ textTransform: 'capitalize' }}>{isActive
         ? 'Release to drop'
-        : `${accept}`}</h3>
+        : `${accept} Numbers`}</h3>
 
-      {lastDroppedItem && (
-        <p>Dropped: {JSON.stringify(lastDroppedItem)}</p>
+      {droppedItems && (
+        <p>{JSON.stringify(droppedItems)}</p>
       )}
     </div>
   )
