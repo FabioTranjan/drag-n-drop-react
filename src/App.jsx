@@ -57,14 +57,12 @@ const App = () => {
 
       <div className='containers'>
         {containers.map(({ accept }, index) => (
-          <div>
-            <Container
-              accept={accept}
-              onDrop={item => handleDrop(index, item)}
-              circles={circles.filter(({ container }, index) => container === accept)}
-              key={index}
-            />
-          </div>
+          <Container
+            accept={accept}
+            onDrop={item => handleDrop(index, item)}
+            circles={circles.filter(({ container }, index) => container === accept)}
+            key={index}
+          />
         ))}
       </div>
     </div>
