@@ -9,15 +9,16 @@ const style = {
   color: 'black',
   fontSize: '1rem',
   padding: '1rem',
+  borderRadius: '5px',
   textAlign: 'center',
   lineHeight: 'normal',
   marginRight: '1.5rem',
   marginBottom: '1.5rem',
   border: '2px solid black',
-  borderRadius: '5px',
+  textTransform: 'capitalize',
 }
 
-const Container = ({ accept, droppedItems, onDrop, circles }) => {
+const Container = ({ accept, onDrop, circles }) => {
   const [{ isOver, canDrop }, drop] = useDrop({
     accept,
     drop: onDrop,
@@ -39,18 +40,16 @@ const Container = ({ accept, droppedItems, onDrop, circles }) => {
 
   return (
     <div ref={drop} style={{ ...style, backgroundColor, borderColor }}>
-      <h3 style={{ textTransform: 'capitalize' }}>{isActive
+      <h3>{isActive
         ? 'Release to drop'
         : `${accept} Numbers`}</h3>
 
-      {droppedItems && (
-        circles.map(({ number, type}) => 
-          <Circle
-            number={number}
-            type={type}
-            key={number}
-          />
-        )
+      {circles.map(({ number, type}) => 
+        <Circle
+          number={number}
+          type={type}
+          key={number}
+        />
       )}
     </div>
   )

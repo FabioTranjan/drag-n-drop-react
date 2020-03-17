@@ -14,31 +14,18 @@ function initCircles() {
 
 function initContainers() {
   const containers = []
-  containers.push({ accept: ItemTypes.EVEN, droppedItems: [] })
-  containers.push({ accept: ItemTypes.ODD, droppedItems: [] })
+  containers.push({ accept: ItemTypes.EVEN })
+  containers.push({ accept: ItemTypes.ODD })
   return containers
 }
 
 const App = () => {
-  const [containers, setContainers] = useState(initContainers())
+  const [containers] = useState(initContainers())
   const [circles, setCircles] = useState(initCircles())
-  const [droppedCircleNumbers, setDroppedCircleNumbers] = useState([])
 
   const handleDrop = useCallback(
     (index, item) => {
       const { number, type } = item
-      setDroppedCircleNumbers(
-        update(droppedCircleNumbers, number ? { $push: [number] } : { $push: [] })
-      )
-      setContainers(
-        update(containers, {
-          [index]: {
-            droppedItems: {
-              $push: [item],
-            },
-          },
-        })
-      )
       setCircles(
         update(circles, {
           [number - 1]: {
@@ -48,7 +35,7 @@ const App = () => {
           },
         })
       )
-    }, [droppedCircleNumbers, containers, circles]
+    }, [circles]
   )
 
   return (
@@ -68,11 +55,10 @@ const App = () => {
       </div>
 
       <div style={{ overflow: 'hidden', clear: 'both', width: '75%', marginLeft: '50px' }}>
-        {containers.map(({ accept, droppedItems }, index) => (
+        {containers.map(({ accept }, index) => (
           <div>
             <Container
               accept={accept}
-              droppedItems={droppedItems}
               onDrop={item => handleDrop(index, item)}
               circles={circles.filter(({ container }, index) => container === accept)}
               key={index}
