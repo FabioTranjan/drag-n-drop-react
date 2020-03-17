@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDrop } from 'react-dnd'
+import Circle from './Circle'
 
 const style = {
   float: 'left',
@@ -16,7 +17,7 @@ const style = {
   borderRadius: '5px',
 }
 
-const Container = ({ accept, droppedItems, onDrop }) => {
+const Container = ({ accept, droppedItems, onDrop, circles }) => {
   const [{ isOver, canDrop }, drop] = useDrop({
     accept,
     drop: onDrop,
@@ -26,7 +27,7 @@ const Container = ({ accept, droppedItems, onDrop }) => {
     }),
   })
 
-  const borderColor = (accept == 'even') ? 'blue' : 'red'
+  const borderColor = (accept === 'even') ? 'blue' : 'red'
 
   const isActive = isOver && canDrop
   let backgroundColor = '#fff'
@@ -43,7 +44,13 @@ const Container = ({ accept, droppedItems, onDrop }) => {
         : `${accept} Numbers`}</h3>
 
       {droppedItems && (
-        <p>{JSON.stringify(droppedItems)}</p>
+        circles.map(({ number, type}) => 
+          <Circle
+            number={number}
+            type={type}
+            key={number}
+          />
+        )
       )}
     </div>
   )

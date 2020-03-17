@@ -14,7 +14,7 @@ const style = {
   width: '15px',
 }
 
-const Circle = ({ number, type, isDropped }) => {
+const Circle = ({ number, type }) => {
   const [{ opacity }, drag] = useDrag({
     item: { number, type },
     collect: monitor => ({
@@ -22,14 +22,9 @@ const Circle = ({ number, type, isDropped }) => {
     }),
   })
 
-  let display = 'block';
-  if (isDropped) {
-    display = 'none';
-  }
-
   return (
-    <div ref={drag} style={{ ...style, opacity, display }}>
-      {isDropped ? <s>{number}</s> : number}
+    <div ref={drag} style={{ ...style, opacity }}>
+      {number}
     </div>
   )
 }
