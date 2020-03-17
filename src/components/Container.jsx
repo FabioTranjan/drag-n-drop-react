@@ -4,17 +4,17 @@ import Circle from './Circle'
 
 const style = {
   float: 'left',
-  height: '12rem',
-  width: '12rem',
   color: 'black',
-  fontSize: '1rem',
+  width: '14rem',
+  height: '14rem',
   padding: '1rem',
-  borderRadius: '5px',
+  fontSize: '1rem',
   textAlign: 'center',
   lineHeight: 'normal',
   marginRight: '1.5rem',
   marginBottom: '1.5rem',
-  border: '2px solid black',
+  borderRadius: '0.5rem',
+  border: '0.15rem solid black',
   textTransform: 'capitalize',
 }
 
@@ -44,13 +44,15 @@ const Container = ({ accept, onDrop, circles }) => {
         ? 'Release to drop'
         : `${accept} Numbers`}</h3>
 
-      {circles.map(({ number, type}) => 
-        <Circle
-          number={number}
-          type={type}
-          key={number}
-        />
-      )}
+      <div className='content'>
+        {circles.map(({ number, type }) => 
+          <Circle
+            number={number}
+            type={type}
+            key={number}
+          />
+        )}
+      </div>
     </div>
   )
 }

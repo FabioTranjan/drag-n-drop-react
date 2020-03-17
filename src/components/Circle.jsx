@@ -2,16 +2,14 @@ import React from 'react'
 import { useDrag } from 'react-dnd'
 
 const style = {
-  border: '1px dashed gray',
-  borderRadius: '50%',
-  backgroundColor: 'lightGray',
-  padding: '0.5rem 1rem',
-  marginRight: '1.5rem',
-  marginBottom: '1.5rem',
-  textAlign: 'center',
+  width: '1rem',
   cursor: 'move',
-  float: 'left',
-  width: '15px',
+  margin: '0.5rem',
+  textAlign: 'center',
+  borderRadius: '50%',
+  padding: '0.5rem 1rem',
+  border: '0.1rem solid gray',
+  backgroundColor: 'lightGray',
 }
 
 const Circle = ({ number, type }) => {
