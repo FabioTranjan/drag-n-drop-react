@@ -1,9 +1,11 @@
-# Frontend Test
+# Drag'n Drop React Demo
 
-Solução para o teste: https://bitbucket.org/delivery_center/test-dev-frontend/src/master/
+## Description
 
-## Como testar
+Demo app using React and React DnD libraries.
 
-1) Clone o projeto ```git clone git@github.com:FabioTranjan/drag-n-drop-react.git```
-2) Entre no projeto e rode o comando ```npm install```
-3) Para testar solução: ```npm start```
+## How to use
+
+1) ```git clone git@github.com:FabioTranjan/drag-n-drop-react.git```
+2) ```npm install```
+3) ```npm start```
